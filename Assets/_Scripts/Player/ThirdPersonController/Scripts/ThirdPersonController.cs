@@ -1,5 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
+#if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+#endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -7,7 +11,9 @@ using UnityEngine.InputSystem;
 namespace StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
+#if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
+#endif
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
@@ -82,6 +88,9 @@ namespace StarterAssets
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
+        
+        //Aiming
+        public Transform enemyTarget; 
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -94,7 +103,9 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+#if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
+#endif
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
@@ -108,10 +119,15 @@ namespace StarterAssets
         {
             get
             {
+#if ENABLE_INPUT_SYSTEM
                 return _playerInput.currentControlScheme == "KeyboardMouse";
+#else
+				return false;
+#endif
             }
         }
 
+        public Action AbilityFunction;
 
         private void Awake()
         {
@@ -120,8 +136,10 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            
         }
-
+        
+       
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
@@ -129,7 +147,11 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
+#if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
+#else
+			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
+#endif
 
             AssignAnimationIDs();
 
@@ -142,9 +164,14 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if (!_input.block)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                CastAbility();
+            }
+            
         }
 
         private void LateUpdate()
@@ -264,6 +291,23 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
+        
+        private void CastAbility()
+        {
+            if (_input.ability)
+            {
+                AbilityFunction();
+                _input.ability = false;
+            }
+
+            
+        }
+        
+        private void OnUlt(InputAction.CallbackContext obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         private void JumpAndGravity()
         {
@@ -369,7 +413,7 @@ namespace StarterAssets
 
         private void OnLand(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f && LandingAudioClip != null)
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
