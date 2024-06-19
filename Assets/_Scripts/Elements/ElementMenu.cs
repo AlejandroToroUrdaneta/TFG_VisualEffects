@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -46,7 +42,7 @@ namespace Elements
         private void ShowElementsMenu()
         {
             int numActions = elementsActions.Length;
-            float angle = 360 / numActions * Mathf.Deg2Rad;
+            float angle = 360f / numActions * Mathf.Deg2Rad;
             float startAngle = 90 * Mathf.Deg2Rad;
             float distance = 250f;
 
@@ -66,7 +62,7 @@ namespace Elements
         {
             int numActions = _elementsInstances.Length;
 
-            for (int i = 0; i < _elementsInstances.Length; i++)
+            for (int i = 0; i < numActions; i++)
             {
                 if (i == 0) _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToNature());
                 else if( i == 1) _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToFire());

@@ -5,7 +5,7 @@ namespace _Scripts.Enemies
 {
     public class VisionField : MonoBehaviour
     {
-        [SerializeField] ActiveNPC _activeNpc;
+        /*[SerializeField] ActiveNPC _activeNpc;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -14,7 +14,7 @@ namespace _Scripts.Enemies
                 _activeNpc.target = other.gameObject;
                 _activeNpc.isChasing = true;
             }
-        }
+        }*/
         
     }
 }

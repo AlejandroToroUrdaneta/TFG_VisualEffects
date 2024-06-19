@@ -1,218 +1,173 @@
 using System;
+using CombatSystem;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
-using Debug = System.Diagnostics.Debug;
-using Random = UnityEngine.Random;
 
-namespace _Scripts.Enemies
+namespace Enemies
 {
     public class ActiveNPC : MonoBehaviour
-    {   
-        //NPC components
+    {
+        [Header("Enemy Settings")]
+        [SerializeField]
+        private float health = 150f;
+        [SerializeField]
+        [Tooltip("time that takes the animation Dying to play")]
+        private float _dyingDelay = 6.0f;
+
+        [Header("Combat")]
+        [SerializeField]
+        [Tooltip("Time it waits to attack again")]
+        private float attackCD = 3.0f;
+
+        [SerializeField]
+        [Tooltip("From how far it can deal damage")]
+        private float attackRange = 1.0f;
+
+        [SerializeField]
+        [Tooltip("From how far starts to attack the player")]
+        private float aggroRange = 4.0f;
+        
+        
+        // NPC Components
+        private GameObject _player;
         private NavMeshAgent _navMeshAgent;
-        private CharacterController _controller;
         private Animator _animator;
+        private CharacterController _controller;
+        private NPCSpawner _spawner;
 
-        public GameObject target;
+        private float _timePassed;
+        private float _newDestinationCD = 0.5f;
+        private bool _Swing;
         
-        // animation IDs
-        private int _animIDNpcSpeed;
-        private int _animIDNpcMotionSpeed;
-        private int _animIDNpcAttack;
-        private int _animIDNpcChangeFist;
         
-        // animation Clips
-        public AudioClip landingAudioClip;
-        public AudioClip[] footstepAudioClips;
-        [Range(0, 1)] public float footstepAudioVolume = 0.5f;
+        // ID animations
+        private int _animSpeedId;
+        private int _animDamageId;
+        private int _animAttackId;
+        private int _animSwingId;
+        private int _animDeathId;
         
-        //NPC atributtes
-        private const float SpeedPatroling = 2.0f;
-        private const float SpeedChasing = 4.5f;
-        private const float SpeedChangeRate = 10.0f;
-        private const float RotationSmoothTime = 0.12f;
-
-        private Vector3 Center => new Vector3(0.0f, 0.93f, 0.0f);
-
-        private float _animationBlend;
-        private float _speed;
-        private float _rotationVelocity;
-        private float _targetRotation = 0.0f;
-        private int _currentWaypoint = 0;
+        // Animations Events
+        public AudioClip[] FootstepAudioClips;
+        [Range(0, 1)] 
+        public float FootstepAudioVolume = 0.5f;
         
-        public float life = 100f;
-        public float damage = 5.0f;
-        public bool isChasing = false;
-        public bool analogMovement = true;
-        
-        public float speedChangeRate = 10.0f;
-        public Transform[] waypoints;
-
-        private void Awake()
-        {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
-            _controller = GetComponent<CharacterController>();
-        }
 
         private void Start()
         {
-            _navMeshAgent.speed = SpeedPatroling;
-            //activar en el animator caminar
+            _player = GameObject.FindWithTag("Player");
+            _spawner = GameObject.FindWithTag("Spawner").GetComponent<NPCSpawner>();
+            _animator = GetComponent<Animator>();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _controller = GetComponent<CharacterController>();
+            
             AssignAnimationIDs();
+        }
+        
+        private void  AssignAnimationIDs()
+        {
+            _animSpeedId = Animator.StringToHash("NpcSpeed");
+            _animDamageId = Animator.StringToHash("NpcDamage");
+            _animAttackId = Animator.StringToHash("NpcAttack");
+            _animSwingId = Animator.StringToHash("NpcSwing");
+            _animDeathId = Animator.StringToHash("NpcDeath");
         }
 
         private void Update()
         {
-            if (!isChasing) Patrol();
-            else ChaseTarget();
+            Vector3 playerPos = _player.transform.position;
+            _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
 
+            if (_timePassed >= attackCD)
+            {
+                if (Vector3.Distance(playerPos, transform.position) <= attackRange)
+                {
+                    _Swing = !_Swing;
+                    _animator.SetBool(_animSwingId, _Swing);
+                    _animator.SetTrigger(_animAttackId);
+                    _timePassed = 0;
+                }
+            }
+
+            _timePassed += Time.deltaTime;
+
+            if (health > 0)
+            {
+                if (_newDestinationCD <= 0 && Vector3.Distance(playerPos, transform.position) <= aggroRange)
+                {
+                    _newDestinationCD = 0.5f;
+                    _navMeshAgent.SetDestination(playerPos);
+                }
+
+                _newDestinationCD -= Time.deltaTime;
+                transform.LookAt(_player.transform);
+            }
+            
         }
+        
 
-
-        private void Patrol()
+        public void TakeDamage(float damageAmount)
         {
-            if (waypoints.Length == 0) return;
+            health -= damageAmount;
+            _animator.SetTrigger(_animDamageId);
 
-            float distanceToCurrentWayPoint = Vector3.Distance(waypoints[_currentWaypoint].position, transform.position);
-
-            if (distanceToCurrentWayPoint <= 2.25f)
+            if (health <= 0)
             {
-                _currentWaypoint = (_currentWaypoint + 1) % waypoints.Length;
+                Die();
             }
-            
-            _animationBlend = Mathf.Lerp(_animationBlend, SpeedPatroling, Time.deltaTime * speedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
-            
-            _animator.SetFloat(_animIDNpcSpeed, _animationBlend);
-            _animator.SetFloat(_animIDNpcMotionSpeed, 1f);
-            
-            Move(waypoints[_currentWaypoint].position - transform.position);
         }
-
-        private void ChaseTarget()
+        
+        private void Die()
         {
-            float distance = Vector3.Distance(transform.position, target.transform.position);
-            
-            NavMeshPath path = new NavMeshPath();
-            NavMesh.CalculatePath(transform.position, target.transform.position, NavMesh.AllAreas, path);
-
-            Vector3 lastPoint = path.corners[^1];
-            lastPoint.y = target.transform.position.y;
-            if (lastPoint != target.transform.position || distance > 10f)
-            {
-                target = null;
-                isChasing = false;
-            }
-            else if (distance <= 1.5f)
-            {
-                    Attack();
-            }else{
-                _animator.SetBool(_animIDNpcAttack,false);
-                _animationBlend = Mathf.Lerp(_animationBlend, SpeedChasing, Time.deltaTime * speedChangeRate);
-                if (_animationBlend < 0.01f) _animationBlend = 0f;
-            
-                _animator.SetFloat(_animIDNpcSpeed, _animationBlend);
-                _animator.SetFloat(_animIDNpcMotionSpeed, 1f);
-
-                
-                Move(target.transform.position - transform.position);
-            }
-
-            
+            _spawner.Invoke(nameof(NPCSpawner.SpawnNPC),_dyingDelay - 0.1f);
+            _animator.SetTrigger(_animDeathId);   
+            Destroy(this.gameObject, _dyingDelay);
         }
-
-        private void Attack()
+        
+        public void StartDealDamage()
         {
-            Vector3 direction = new Vector3(target.transform.position.x, 0.0f, target.transform.position.z);
-            transform.LookAt(direction);
-            _animator.SetBool(_animIDNpcAttack,true);
+            EnemyDamageDealer[] children = GetComponentsInChildren<EnemyDamageDealer>();
+
+            foreach (EnemyDamageDealer eDD in children)
+            {
+                eDD.StartDealDamage();
+            }
         }
-        
-        private void Move(Vector3 direction)
+
+        public void EndDealDamage()
         {
+            EnemyDamageDealer[] children = GetComponentsInChildren<EnemyDamageDealer>();
 
-            float targetSpeed = isChasing ? SpeedChasing : SpeedPatroling;
-            
-
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.001f;
-            float inputMagnitude = analogMovement ? (direction * targetSpeed).magnitude : 1f;
-
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
+            foreach (EnemyDamageDealer eDD in children)
             {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
+                eDD.EndDealDamage();
             }
-            else
-            {
-                _speed = targetSpeed;
-            }
-
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
-            
-            Vector3 inputDirection = direction.normalized;
-
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
-            if (direction != Vector3.zero)
-            {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
-
-
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
-            // move the player
-            _controller.Move(targetDirection.normalized * (targetSpeed * Time.deltaTime));
-
-
-            _animator.SetFloat(_animIDNpcSpeed, _animationBlend);
-            _animator.SetFloat(_animIDNpcMotionSpeed, inputMagnitude);
-
         }
         
-        
-        
-        
-        
-        private void AssignAnimationIDs()
-        {
-            _animIDNpcSpeed = Animator.StringToHash("NpcSpeed");
-            _animIDNpcMotionSpeed = Animator.StringToHash("NpcMotionSpeed");
-            _animIDNpcAttack = Animator.StringToHash("NpcAttacking");
-            _animIDNpcChangeFist = Animator.StringToHash("NpcChangeFist");
-        }
         
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                if (footstepAudioClips.Length > 0)
+                if (FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, footstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(footstepAudioClips[index], transform.TransformPoint(Center), footstepAudioVolume);
+                    var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
         }
 
-        private void OnLand(AnimationEvent animationEvent)
+        private void OnDrawGizmos()
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                AudioSource.PlayClipAtPoint(landingAudioClip, transform.TransformPoint(Center), footstepAudioVolume);
-            }
+            Gizmos.color = Color.red;;
+            Gizmos.DrawWireSphere(transform.position,attackRange);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position,aggroRange);
+        }
+
+        public float GetRestingHealth()
+        {
+            return health;
         }
     }
 }

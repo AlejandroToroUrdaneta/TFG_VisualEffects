@@ -151,8 +151,8 @@ PlayerSettings:
   isWsaHolographicRemotingEnabled: 0
   enableFrameTimingStats: 0
   enableOpenGLProfilerGPURecorders: 1
-  allowHDRDisplaySupport: 0
-  useHDRDisplay: 0
+  allowHDRDisplaySupport: 1
+  useHDRDisplay: 1
   hdrBitDepth: 0
   m_ColorGamuts: 00000000
   targetPixelDensity: 30
@@ -644,7 +644,8 @@ PlayerSettings:
     Lumin: UNITY_POST_PROCESSING_STACK_V2
     Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2
     PS4: UNITY_POST_PROCESSING_STACK_V2
-    Standalone: 
+    Server: PROBUILDER_EXPERIMENTAL_FEATURES
+    Standalone: PROBUILDER_EXPERIMENTAL_FEATURES
     WebGL: UNITY_POST_PROCESSING_STACK_V2
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2
     XboxOne: UNITY_POST_PROCESSING_STACK_V2

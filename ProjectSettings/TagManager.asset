@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Enemy
+  - Spawner
   layers:
   - Default
   - TransparentFX
@@ -12,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - Wall
   - PostProcessing
   - Not in Reflection
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

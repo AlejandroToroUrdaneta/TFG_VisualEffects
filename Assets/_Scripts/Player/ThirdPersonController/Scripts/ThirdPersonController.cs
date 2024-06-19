@@ -102,6 +102,7 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDDamaged;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -186,6 +187,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDDamaged = Animator.StringToHash("Damage");
         }
 
         private void GroundedCheck()
@@ -308,7 +310,6 @@ namespace StarterAssets
             throw new System.NotImplementedException();
         }
 
-
         private void JumpAndGravity()
         {
             if (Grounded)
@@ -399,6 +400,12 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+        public void TakeDamage(float damageAmount)
+        {
+            _animator.SetTrigger(_animIDDamaged);
+        }
+        
+        
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
