@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +7,34 @@ namespace CombatSystem
 {
     public class EquipmentSystem : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField]
+        private GameObject weaponHolder;
+
+        [SerializeField]
+        private GameObject weapon;
+
+        [SerializeField]
+        private GameObject weaponSheath;
+
+
+        private GameObject _currentWeaponInHand;
+        private GameObject _currentWeaponInSheath;
+
+        private void Start()
         {
-        
+            if (weapon != null) _currentWeaponInSheath = Instantiate(weapon, weaponSheath.transform);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void DrawWeapon()
         {
-        
+            _currentWeaponInHand = Instantiate(weapon, weaponHolder.transform);
+            Destroy(_currentWeaponInSheath);
+        }
+
+        public void SheathWeapon()
+        {
+            _currentWeaponInSheath = Instantiate(weapon, weaponSheath.transform);
+            Destroy(_currentWeaponInHand);
         }
     }
 
