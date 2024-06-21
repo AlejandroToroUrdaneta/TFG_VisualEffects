@@ -1,0 +1,18 @@
+-Terminar de implementar los vfx de nature y energy. (2d aprox)
+	-Crear los visual effects graphs.
+	-rellenar los scripts siguiendo el formato de ElementFire.
+
+-Crear la UI y los menus. (6h aprox)
+	-pasar los menus de inicio pausa y config de anteriores proyectos.(2h aprox) 
+	-poner los assets visuales finales y quitar los holders. (3-4h)
+
+-Ajustar y configurar animaciones.(6h)
+    -Arreglar animaciones actuales.
+	-animaciones sacadas de mixamo, solo faltan los de personaje con pistola.
+
+-volver a implementar al npc pasive del anterior proyecto. (1)h
+
+-ajustar luces y añadir efectos visuales a la escena. (8h)
+
+-Seguir rellenando la memoria.
+

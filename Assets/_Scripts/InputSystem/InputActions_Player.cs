@@ -89,6 +89,24 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""3990b6eb-f5fc-4183-a9f6-140afaeef3a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LevelDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4848e26-40fc-414d-9bab-9fef71549ef0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -322,6 +340,72 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
                     ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Ctrl+H"",
+                    ""id"": ""f8070adb-9433-4406-8ea8-a8fd2808af48"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelDown"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""35a79f47-faad-4f77-bd14-57fc15161ad8"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""LevelDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""341c3d81-3716-480b-a2d9-0e096be4cbdf"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""crtl+J"",
+                    ""id"": ""ba8703b9-196a-4b1b-965c-3405d9bde772"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LevelUp"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""dbbef105-4842-46a5-b32b-113175f2f69c"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""LevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""2ab99f51-4c8f-4b2b-bf33-d099475916bf"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""LevelUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -385,6 +469,8 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
         m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
         m_Player_Ult = m_Player.FindAction("Ult", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_LevelUp = m_Player.FindAction("LevelUp", throwIfNotFound: true);
+        m_Player_LevelDown = m_Player.FindAction("LevelDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -453,6 +539,8 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability;
     private readonly InputAction m_Player_Ult;
     private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_LevelUp;
+    private readonly InputAction m_Player_LevelDown;
     public struct PlayerActions
     {
         private @InputActions_Player m_Wrapper;
@@ -464,6 +552,8 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
         public InputAction @Ability => m_Wrapper.m_Player_Ability;
         public InputAction @Ult => m_Wrapper.m_Player_Ult;
         public InputAction @Block => m_Wrapper.m_Player_Block;
+        public InputAction @LevelUp => m_Wrapper.m_Player_LevelUp;
+        public InputAction @LevelDown => m_Wrapper.m_Player_LevelDown;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -494,6 +584,12 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
+            @LevelUp.started += instance.OnLevelUp;
+            @LevelUp.performed += instance.OnLevelUp;
+            @LevelUp.canceled += instance.OnLevelUp;
+            @LevelDown.started += instance.OnLevelDown;
+            @LevelDown.performed += instance.OnLevelDown;
+            @LevelDown.canceled += instance.OnLevelDown;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -519,6 +615,12 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
+            @LevelUp.started -= instance.OnLevelUp;
+            @LevelUp.performed -= instance.OnLevelUp;
+            @LevelUp.canceled -= instance.OnLevelUp;
+            @LevelDown.started -= instance.OnLevelDown;
+            @LevelDown.performed -= instance.OnLevelDown;
+            @LevelDown.canceled -= instance.OnLevelDown;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -581,5 +683,7 @@ public partial class @InputActions_Player: IInputActionCollection2, IDisposable
         void OnAbility(InputAction.CallbackContext context);
         void OnUlt(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
+        void OnLevelUp(InputAction.CallbackContext context);
+        void OnLevelDown(InputAction.CallbackContext context);
     }
 }

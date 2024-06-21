@@ -213,13 +213,13 @@ MonoBehaviour:
     m_Value: 2
   threshold:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.3
   scatter:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.6
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 13.5
+    m_Value: 13
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -760,9 +760,6 @@ MonoBehaviour:
   cloudControl:
     m_OverrideState: 0
     m_Value: 0
-  cloudSimpleMode:
-    m_OverrideState: 0
-    m_Value: 0
   m_CloudPreset:
     m_OverrideState: 1
     m_Value: 1
@@ -929,15 +926,6 @@ MonoBehaviour:
   erosionNoiseType:
     m_OverrideState: 1
     m_Value: 1
-  microErosion:
-    m_OverrideState: 0
-    m_Value: 0
-  microErosionFactor:
-    m_OverrideState: 1
-    m_Value: 0.5
-  microErosionScale:
-    m_OverrideState: 1
-    m_Value: 200
   ambientLightProbeDimmer:
     m_OverrideState: 0
     m_Value: 1
@@ -1105,6 +1093,7 @@ MonoBehaviour:
   m_Name: HDShadowSettings
   m_EditorClassIdentifier: 
   active: 1
+  interCascadeBorders: 1
   maxShadowDistance:
     m_OverrideState: 1
     m_Value: 70
@@ -1125,13 +1114,13 @@ MonoBehaviour:
     m_Value: 0.22857143
   cascadeShadowBorder0:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.13397461
   cascadeShadowBorder1:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.58578646
   cascadeShadowBorder2:
     m_OverrideState: 1
-    m_Value: 0.375
+    m_Value: 0.27924076
   cascadeShadowBorder3:
     m_OverrideState: 0
     m_Value: 0

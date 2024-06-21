@@ -64,9 +64,9 @@ namespace Elements
 
             for (int i = 0; i < numActions; i++)
             {
-                if (i == 0) _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToNature());
+                if (i == 0) _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToEnergy());
                 else if( i == 1) _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToFire());
-                else _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToEnergy());
+                else _elementsInstances[i].GetComponent<Button>().onClick.AddListener(() => _elementManager.ChangeToNature());
             }
         }
 

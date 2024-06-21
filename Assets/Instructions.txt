@@ -1,0 +1,13 @@
+-Moverse con awsd y enfocar con el raton.
+
+-cambiar de habilidad presionando el tabulador o el altIzq y clickar uno de los botones.
+
+-Con leftCtrl+H baja el nivel del personaje y desevoluciona el vfx.
+
+-Con leftCtrl+J sube el nivel del personaje y evoluciona el vfx.
+
+-con la E se activa la abilidad del personaje.
+
+- el ActiveNPC atacara al jugador al estar a una distancia determinada, si no esta lo suficiente cerca solo lo perseguirá, 
+    si esta muy lejos dejara de seguirlo.
+

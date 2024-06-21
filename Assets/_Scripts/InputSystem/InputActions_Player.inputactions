@@ -1,5 +1,5 @@
 {
-    "name": "StarterAssets",
+    "name": "InputActions_Player",
     "maps": [
         {
             "name": "Player",
@@ -63,6 +63,24 @@
                     "name": "Block",
                     "type": "PassThrough",
                     "id": "59dd8f86-ebbf-4e8b-8e0c-a15f9ace0d8b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LevelUp",
+                    "type": "Button",
+                    "id": "3990b6eb-f5fc-4183-a9f6-140afaeef3a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LevelDown",
+                    "type": "Button",
+                    "id": "f4848e26-40fc-414d-9bab-9fef71549ef0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -300,6 +318,72 @@
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Ctrl+H",
+                    "id": "f8070adb-9433-4406-8ea8-a8fd2808af48",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LevelDown",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "35a79f47-faad-4f77-bd14-57fc15161ad8",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LevelDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "341c3d81-3716-480b-a2d9-0e096be4cbdf",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LevelDown",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "crtl+J",
+                    "id": "ba8703b9-196a-4b1b-965c-3405d9bde772",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LevelUp",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "dbbef105-4842-46a5-b32b-113175f2f69c",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LevelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "2ab99f51-4c8f-4b2b-bf33-d099475916bf",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "LevelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

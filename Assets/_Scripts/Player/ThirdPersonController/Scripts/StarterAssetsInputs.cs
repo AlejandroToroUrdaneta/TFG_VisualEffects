@@ -15,13 +15,18 @@ namespace StarterAssets
 		public bool ability;
 		public bool block;
 
+		[Header("Shortcuts Input Values")]
+		public bool levelUp;
+		public bool levelDown;
+		
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
-
+		
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
@@ -50,10 +55,21 @@ namespace StarterAssets
 			AbilityInput(!block && value.isPressed);
 		}
 		
-		private void OnBlock(InputValue value)
+		public void OnBlock(InputValue value)
 		{
 			BlockInput(value.isPressed);
 			OnApplicationFocus(!value.isPressed);
+		}
+
+
+		public void OnLevelUp(InputValue value)
+		{
+			LevelUpInput(value.isPressed);
+		}
+		
+		public void OnLevelDown(InputValue value)
+		{
+			LevelDownInput(value.isPressed);
 		}
 		
 #endif
@@ -88,12 +104,21 @@ namespace StarterAssets
 		{
 			block = newBlockState;
 		}
+
+		public void LevelUpInput(bool newLevelUpState)
+		{
+			levelUp = newLevelUpState;
+		}
+		public void LevelDownInput(bool newLevelDownState)
+		{
+			levelDown = newLevelDownState;
+		}
+
+	
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked && hasFocus);
 		}
-
-		
 		
 		private void SetCursorState(bool newState)
 		{

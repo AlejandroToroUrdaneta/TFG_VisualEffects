@@ -92,6 +92,9 @@ namespace StarterAssets
         //Aiming
         public Transform enemyTarget; 
 
+        //Player level
+        public int Level = 1;
+        
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
@@ -131,6 +134,7 @@ namespace StarterAssets
         }
 
         public Action AbilityFunction;
+        public Action ShootFunction;
 
         private void Awake()
         {
@@ -173,6 +177,8 @@ namespace StarterAssets
                 GroundedCheck();
                 Move();
                 CastAbility();
+                LevelUp();
+                LevelDown();
             }
             
         }
@@ -192,6 +198,7 @@ namespace StarterAssets
             _animIDDamaged = Animator.StringToHash("Damage");
             _animIDDirX = Animator.StringToHash("X");
             _animIDDirY = Animator.StringToHash("Y");
+
         }
 
         private void GroundedCheck()
@@ -270,6 +277,7 @@ namespace StarterAssets
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
+
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero )
@@ -293,8 +301,9 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
+
                 _animator.SetFloat(_animIDDirX, inputDirection.x);
-                _animator.SetFloat(_animIDDirY, inputDirection.y);
+                _animator.SetFloat(_animIDDirY, inputDirection.z);
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
@@ -307,8 +316,11 @@ namespace StarterAssets
                 AbilityFunction();
                 _input.ability = false;
             }
-
-            
+        }
+        
+        private void Shoot()
+        {
+            ShootFunction();
         }
         
         private void OnUlt(InputAction.CallbackContext obj)
@@ -411,6 +423,22 @@ namespace StarterAssets
             _animator.SetTrigger(_animIDDamaged);
         }
         
+        private void LevelUp()
+        {
+            if (_input.levelUp){ 
+                if(Level < 3)Level += 1;
+                _input.levelUp = false;
+            }
+        }
+        
+        private void LevelDown()
+        {
+            if (_input.levelDown)
+            {
+                if(Level > 1) Level -= 1;
+                _input.levelDown = false;
+            }
+        }
         
         private void OnFootstep(AnimationEvent animationEvent)
         {

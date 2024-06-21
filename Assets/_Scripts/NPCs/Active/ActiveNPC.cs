@@ -1,5 +1,6 @@
 using System;
 using CombatSystem;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -95,6 +96,10 @@ namespace Enemies
             {
                 if (_newDestinationCD <= 0 && Vector3.Distance(playerPos, transform.position) <= aggroRange)
                 {
+                    if (_player.GetComponent<ThirdPersonController>().enemyTarget == null)
+                    {
+                        _player.GetComponent<ThirdPersonController>().enemyTarget  = this.transform;
+                    }
                     _newDestinationCD = 0.5f;
                     _navMeshAgent.SetDestination(playerPos);
                 }

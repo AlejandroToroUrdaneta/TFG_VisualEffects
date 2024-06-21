@@ -7,72 +7,45 @@ using UnityEngine.Serialization;
 
 namespace Elements
 {
-    public class NatureElement : MonoBehaviour
-    {
-        public Camera cam;
-        public GameObject projectile;
-        public Transform firePoint;
-        public float fireRate = 4;
+    public class NatureElement : MonoBehaviour{
+        //attributes
+        private ThirdPersonController _tpc;
 
-        private Vector3 _destination;
-        private float _timeToFire;
-        private Projectile _projectileScript;
-
-        public void CastAbility()
+        private void Start()
         {
-            _timeToFire = Time.time + 1 / fireRate;
-            ShootProjectile();
-
+            //Initialize some attributes
+            _tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>();
         }
 
-        private void ShootProjectile()
+        public void CastAbility( )
         {
-            if (cam != null)
+            SetAbilitySettingsByLevel();
+        }
+
+        public void Shoot()
+        {
+            //instantiate the projectile thats goin to be cast
+        }
+
+        private void SetAbilitySettingsByLevel()
+        {
+            int currentLevel = _tpc.Level;
+
+            switch (currentLevel)
             {
-                Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                _destination = ray.GetPoint(1000);
-                InstantiateProjectile();
+                case 3:
+                    
+                    print("Nature on phase3");
+                    break;
+                case 2:
+                    print("Nature on phase2");
+                    break;
+                default:
+                    print("Nature on phase1");
+                    break;
             }
-            else
-            {
-                Debug.Log("B");
-                InstantiateProjectileAtFirePoint();
-            }
-        }
-
-        private void InstantiateProjectile()
-        {
-            var projectileObj = Instantiate(projectile, firePoint.position, quaternion.identity) as GameObject;
-
-            _projectileScript = projectileObj.GetComponent<Projectile>();
-            RotateToDestination(projectileObj, _destination, true);
-            projectileObj.GetComponent<Rigidbody>().velocity = transform.forward * _projectileScript.speed;
-        }
-
-        private void InstantiateProjectileAtFirePoint()
-        {
-            var projectileObj = Instantiate(projectile, firePoint.position, quaternion.identity) as GameObject;
             
-            _projectileScript = projectileObj.GetComponent<Projectile>();
-            RotateToDestination(projectileObj, firePoint.transform.forward * 1000, true);
-            projectileObj.GetComponent<Rigidbody>().velocity = firePoint.transform.forward * _projectileScript.speed;
         }
-
-        private void RotateToDestination(GameObject obj, Vector3 destination, bool onlyY)
-        {
-            var direction = destination - obj.transform.position;
-            var rotation = Quaternion.LookRotation(direction);
-
-            if (onlyY)
-            {
-                rotation.x = 0;
-                rotation.z = 0;
-            }
-
-            obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
-        }
-
-       
     }
 }
 

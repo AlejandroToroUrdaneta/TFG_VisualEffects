@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: 40464b06a0496b74788d5f558592d651
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 1
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 1
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths:
+    - AMesh_Ride_FengHuang_01
+    - b_Root
+    - b_Root/B_Left_Wing_0
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_2
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_2/B_Left_Wing_6
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_2/B_Left_Wing_6/B_Left_Wing_7
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_2/B_Left_Wing_6/B_Left_Wing_7/B_Left_Wing_8
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_3
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_3/B_Left_Wing_4
+    - b_Root/B_Left_Wing_0/B_Left_Wing_1/B_Left_Wing_3/B_Left_Wing_4/B_Left_Wing_5
+    - b_Root/B_Pelvis
+    - b_Root/B_Pelvis/B_Hair_16
+    - b_Root/B_Pelvis/B_Hair_16/B_Hair_17
+    - b_Root/B_Pelvis/B_Hair_16/B_Hair_17/B_Hair_18
+    - b_Root/B_Pelvis/B_Hair_19
+    - b_Root/B_Pelvis/B_Hair_19/B_Hair_20
+    - b_Root/B_Pelvis/B_Hair_19/B_Hair_20/B_Hair_21
+    - b_Root/B_Pelvis/B_Hair_22
+    - b_Root/B_Pelvis/B_Hair_22/B_Hair_23
+    - b_Root/B_Pelvis/B_Hair_22/B_Hair_23/B_Hair_24
+    - b_Root/B_Pelvis/B_Hair_22/B_Hair_23/B_Hair_24/B_Hair_25
+    - b_Root/B_Pelvis/B_Hair_22/B_Hair_23/B_Hair_24/B_Hair_25/B_Hair_26
+    - b_Root/B_Pelvis/B_Hair_22/B_Hair_23/B_Hair_24/B_Hair_25/B_Hair_26/B_Hair_27
+    - b_Root/B_Pelvis/B_Hair_28
+    - b_Root/B_Pelvis/B_Hair_28/B_Hair_29
+    - b_Root/B_Pelvis/B_Hair_28/B_Hair_29/B_Hair_30
+    - b_Root/B_Pelvis/B_Hair_28/B_Hair_29/B_Hair_30/B_Hair_31
+    - b_Root/B_Pelvis/B_Hair_28/B_Hair_29/B_Hair_30/B_Hair_31/B_Hair_32
+    - b_Root/B_Pelvis/B_Hair_28/B_Hair_29/B_Hair_30/B_Hair_31/B_Hair_32/B_Hair_33
+    - b_Root/B_Pelvis/B_Hair_34
+    - b_Root/B_Pelvis/B_Hair_34/B_Hair_35
+    - b_Root/B_Pelvis/B_Hair_34/B_Hair_35/B_Hair_36
+    - b_Root/B_Pelvis/B_Hair_34/B_Hair_35/B_Hair_36/B_Hair_37
+    - b_Root/B_Pelvis/B_Hair_34/B_Hair_35/B_Hair_36/B_Hair_37/B_Hair_38
+    - b_Root/B_Pelvis/B_Hair_39
+    - b_Root/B_Pelvis/B_Hair_39/B_Hair_40
+    - b_Root/B_Pelvis/B_Hair_39/B_Hair_40/B_Hair_41
+    - b_Root/B_Pelvis/B_Hair_39/B_Hair_40/B_Hair_41/B_Hair_42
+    - b_Root/B_Pelvis/B_Hair_39/B_Hair_40/B_Hair_41/B_Hair_42/B_Hair_43
+    - b_Root/B_Pelvis/B_Left_Thigh
+    - b_Root/B_Pelvis/B_Left_Thigh/B_Left_Calf
+    - b_Root/B_Pelvis/B_Left_Thigh/B_Left_Calf/b_Left_Foot
+    - b_Root/B_Pelvis/B_Left_Wing_9
+    - b_Root/B_Pelvis/B_Right_Thigh
+    - b_Root/B_Pelvis/B_Right_Thigh/B_Right_Calf
+    - b_Root/B_Pelvis/B_Right_Thigh/B_Right_Calf/b_Right_Foot
+    - b_Root/B_Pelvis/B_Right_Wing_9
+    - b_Root/B_Pelvis/B_Tail_0
+    - b_Root/B_Pelvis/B_Tail_0/B_Tail_1
+    - b_Root/B_Pelvis/B_Tail_0/B_Tail_1/B_Tail_2
+    - b_Root/B_Pelvis/B_Tail_0/B_Tail_1/B_Tail_2/B_Tail_3
+    - b_Root/B_Pelvis/B_Tail_0/B_Tail_1/B_Tail_2/B_Tail_3/B_Tail_4
+    - b_Root/B_Pelvis/B_Tail_0/B_Tail_1/B_Tail_2/B_Tail_3/B_Tail_4/B_Tail_5
+    - b_Root/B_Right_Wing_0
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_2
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_2/B_Right_Wing_6
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_2/B_Right_Wing_6/B_Right_Wing_7
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_2/B_Right_Wing_6/B_Right_Wing_7/B_Right_Wing_8
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_3
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_3/B_Right_Wing_4
+    - b_Root/B_Right_Wing_0/B_Right_Wing_1/B_Right_Wing_3/B_Right_Wing_4/B_Right_Wing_5
+    - b_Root/B_Spine
+    - b_Root/B_Spine/B_Hair_7
+    - b_Root/B_Spine/B_Hair_7/B_Hair_8
+    - b_Root/B_Spine/B_Hair_7/B_Hair_8/B_Hair_9
+    - b_Root/B_Spine/B_Hair_10
+    - b_Root/B_Spine/B_Hair_10/B_Hair_11
+    - b_Root/B_Spine/B_Hair_10/B_Hair_11/B_Hair_12
+    - b_Root/B_Spine/B_Hair_13
+    - b_Root/B_Spine/B_Hair_13/B_Hair_14
+    - b_Root/B_Spine/B_Hair_13/B_Hair_14/B_Hair_15
+    - b_Root/B_Spine/b_Neck_0
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_0
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_1
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_2
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_3
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_3/B_Hair_4
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_3/B_Hair_4/B_Hair_5
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_3/B_Hair_4/B_Hair_5/B_Hair_6
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_44
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_44/B_Hair_45
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_44/B_Hair_45/B_Hair_46
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Hair_44/B_Hair_45/B_Hair_46/B_Hair_47
+    - b_Root/B_Spine/b_Neck_0/b_Neck_1/b_Neck_2/b_Head/B_Jaw
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      internalID: 1827226128182048838
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: -90
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: b_Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
