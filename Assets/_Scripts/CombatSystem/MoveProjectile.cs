@@ -10,7 +10,7 @@ public class MoveProjectile : MonoBehaviour
     private Rigidbody _rigidbody;
     private ThirdPersonController _tpc;
     private Vector3 _aimDirection;
-    private float _heigthOffset = 1.4f;
+    private float _heigthOffset = 1.8f;
     
     private void Start()
     {

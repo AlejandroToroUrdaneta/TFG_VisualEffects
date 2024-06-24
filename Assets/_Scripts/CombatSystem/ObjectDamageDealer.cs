@@ -14,8 +14,8 @@ public class ObjectDamageDealer : MonoBehaviour
         {
             print( $"EnemyDamage -{_damage} health = {enemy.GetRestingHealth()} ");
             enemy.TakeDamage(_damage);
-            if(_isDestroyable) Destroy(this.gameObject);
         }
+        if(_isDestroyable) Destroy(this.gameObject);
     }
     
 }

@@ -30,7 +30,7 @@ namespace Enemies
         
         
         // NPC Components
-        private GameObject _player;
+        private ThirdPersonController _player;
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
         private CharacterController _controller;
@@ -38,8 +38,12 @@ namespace Enemies
 
         private float _timePassed;
         private float _newDestinationCD = 0.5f;
+        private float _patrolSpeed = 3.5f;
+        private float _seekSpeed = 4.5f;
         private bool _Swing;
+        private int _currentWaypoint = 0;
         
+        public Transform[] waypoints;
         
         // ID animations
         private int _animSpeedId;
@@ -56,7 +60,7 @@ namespace Enemies
 
         private void Start()
         {
-            _player = GameObject.FindWithTag("Player");
+            _player = GameObject.FindWithTag("Player").GetComponent<ThirdPersonController>();
             _spawner = GameObject.FindWithTag("Spawner").GetComponent<NPCSpawner>();
             _animator = GetComponent<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -77,7 +81,6 @@ namespace Enemies
         private void Update()
         {
             Vector3 playerPos = _player.transform.position;
-            _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
 
             if (_timePassed >= attackCD)
             {
@@ -94,18 +97,34 @@ namespace Enemies
 
             if (health > 0)
             {
-                if (_newDestinationCD <= 0 && Vector3.Distance(playerPos, transform.position) <= aggroRange)
+                if (_newDestinationCD <= 0)
                 {
-                    if (_player.GetComponent<ThirdPersonController>().enemyTarget == null)
+                    if (Vector3.Distance(playerPos, transform.position) <= aggroRange)//seek the target
                     {
-                        _player.GetComponent<ThirdPersonController>().enemyTarget  = this.transform;
+                        _player.enemyTarget  = this.transform;
+                        _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _seekSpeed);
+                        _navMeshAgent.speed = _seekSpeed;
+                        _navMeshAgent.SetDestination(playerPos);
+                        transform.LookAt(_player.transform);
+                    }
+                    else //patrol
+                    {
+                        _player.enemyTarget  = null;
+                        _navMeshAgent.speed = _patrolSpeed;
+                        _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
+                        if (Vector3.Distance(waypoints[_currentWaypoint].position, transform.position) < 1f)
+                        {
+                            _currentWaypoint = (_currentWaypoint + 1) % waypoints.Length;
+                        }
+                        _navMeshAgent.SetDestination(waypoints[_currentWaypoint].position);
+                        transform.LookAt(waypoints[_currentWaypoint].position);
                     }
                     _newDestinationCD = 0.5f;
-                    _navMeshAgent.SetDestination(playerPos);
+                    
                 }
 
                 _newDestinationCD -= Time.deltaTime;
-                transform.LookAt(_player.transform);
+                
             }
             
         }

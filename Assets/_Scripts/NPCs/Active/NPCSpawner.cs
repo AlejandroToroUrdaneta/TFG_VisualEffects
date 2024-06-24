@@ -20,7 +20,7 @@ public class NPCSpawner : MonoBehaviour
    
     public void SpawnNPC()
     {
-        GameObject instance = Instantiate(npc, transform.position, quaternion.identity, transform);
-        //instance.GetComponent<Enemy.ActiveNPC>().waypoints = coreWaypoints;
+        GameObject instance = Instantiate(npc, transform.position, quaternion.identity);
+        instance.GetComponent<Enemies.ActiveNPC>().waypoints = coreWaypoints;
     }
 }
