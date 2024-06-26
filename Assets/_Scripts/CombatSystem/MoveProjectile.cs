@@ -17,13 +17,14 @@ public class MoveProjectile : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>();
 
+        this.transform.rotation = _tpc.transform.rotation;
 
         if (_tpc.enemyTarget != null)
         {
             Vector3 enemyWithOffset = new Vector3(_tpc.enemyTarget.position.x, _tpc.enemyTarget.position.y + _heigthOffset, _tpc.enemyTarget.position.z);
             _aimDirection = (_tpc.enemyTarget.position - transform.position).normalized;
         }
-        else _aimDirection = -transform.forward;
+        else _aimDirection = _tpc.transform.forward;
 
     }
 

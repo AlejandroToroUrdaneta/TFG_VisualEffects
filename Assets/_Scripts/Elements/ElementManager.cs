@@ -36,15 +36,10 @@ namespace Elements
         public void ChangeToNature()
         {
             tpcAnimator.SetBool(_currentWeaponEquiped, false);
-            
-           // _currentWeaponEquiped = "CastEquiped";
-            //set bool CastEquiped to true
-            tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
-            //set cast layer weigth to 1
-           //_currentAnimatorLayer = "Base Layer";
-            //tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),1);
+            if(_currentAnimatorLayer == "Bow Layer") tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
             
             tpc.AbilityFunction = _nature.CastAbility;
+            tpc.ShootFunction = _nature.Shoot;
         }
 
         public void ChangeToFire()
@@ -73,7 +68,9 @@ namespace Elements
             
             _currentAnimatorLayer = "Base Layer";
             tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),1);
+            
             tpc.AbilityFunction = _energy.CastAbility;
+            tpc.ShootFunction = _energy.Shoot;
         }
     }
 }

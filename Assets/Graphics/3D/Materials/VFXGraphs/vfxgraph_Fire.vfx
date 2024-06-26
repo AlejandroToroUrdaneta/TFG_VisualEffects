@@ -378,7 +378,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":59.017677307128909,"g":8.557564735412598,"b":2.9508845806121828,"a":1.0}'
+      m_SerializableObject: '{"r":23.968629837036134,"g":3.475451946258545,"b":1.1984318494796754,"a":1.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -5512,7 +5512,7 @@ MonoBehaviour:
   particlePerStripCount: 16
   needsComputeBounds: 1
   boundsMode: 2
-  m_Space: 0
+  m_Space: 1
 --- !u!114 &8926484042661614803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6167,7 +6167,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":59.017677307128909,"g":8.557564735412598,"b":2.9508845806121828,"a":1.0}'
+      m_SerializableObject: '{"r":23.968629837036134,"g":3.475451946258545,"b":1.1984318494796754,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: o
@@ -6359,7 +6359,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614841}
       inputSlot: {fileID: 8926484042661615034}
-    position: {x: 2285, y: -1208}
+    position: {x: 2284, y: -1205}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614841
@@ -7196,7 +7196,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: B
@@ -10152,7 +10152,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"r":0.0,"g":0.0,"b":0.0,"a":0.0}'
+      m_SerializableObject: '{"r":0.0,"g":0.0,"b":0.0,"a":1.0}'
     m_Space: 2147483647
   m_Property:
     name: _Color01
