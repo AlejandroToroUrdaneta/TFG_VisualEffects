@@ -80,28 +80,27 @@ namespace Enemies
 
         private void Update()
         {
-            Vector3 playerPos = _player.transform.position;
-
-            if (_timePassed >= attackCD)
-            {
-                if (Vector3.Distance(playerPos, transform.position) <= attackRange)
-                {
-                    _Swing = !_Swing;
-                    _animator.SetBool(_animSwingId, _Swing);
-                    _animator.SetTrigger(_animAttackId);
-                    _timePassed = 0;
-                }
-            }
-
-            _timePassed += Time.deltaTime;
-
             if (health > 0)
             {
+                Vector3 playerPos = _player.transform.position;
+
+                if (_timePassed >= attackCD)
+                {
+                    if (Vector3.Distance(playerPos, transform.position) <= attackRange)
+                    {
+                        _Swing = !_Swing;
+                        _animator.SetBool(_animSwingId, _Swing);
+                        _animator.SetTrigger(_animAttackId);
+                        _timePassed = 0;
+                    }
+                }
+
+                _timePassed += Time.deltaTime;
+                
                 if (_newDestinationCD <= 0)
                 {
                     if (Vector3.Distance(playerPos, transform.position) <= aggroRange)//seek the target
                     {
-                        _player.enemyTarget  = this.transform;
                         _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _seekSpeed);
                         _navMeshAgent.speed = _seekSpeed;
                         _navMeshAgent.SetDestination(playerPos);
@@ -109,7 +108,6 @@ namespace Enemies
                     }
                     else //patrol
                     {
-                        _player.enemyTarget  = null;
                         _navMeshAgent.speed = _patrolSpeed;
                         _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
                         if (Vector3.Distance(waypoints[_currentWaypoint].position, transform.position) < 1f)

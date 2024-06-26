@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5414700360427524073}
   - component: {fileID: 4916704265856725384}
   - component: {fileID: 921886016660061445}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: vfxGraph_FireExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

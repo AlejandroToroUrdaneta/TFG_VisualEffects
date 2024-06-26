@@ -20,7 +20,6 @@ public class ObjectDamageDealer : MonoBehaviour
     {
         if (other.TryGetComponent(out Enemies.ActiveNPC enemy ))
         {
-            print( $"EnemyDamage -{_damage} health = {enemy.GetRestingHealth()} ");
             enemy.TakeDamage(_damage);
         }
 

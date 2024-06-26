@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallLeftSide
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b527c87b9a01087489c710faac5a13e8, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
