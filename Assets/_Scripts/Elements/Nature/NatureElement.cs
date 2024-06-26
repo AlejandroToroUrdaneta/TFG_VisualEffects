@@ -50,6 +50,12 @@ namespace Elements
             {
                 GameObject instance = Instantiate(orb, capybaraInstantiateTransform.position, Quaternion.identity);
                 instance.transform.GetChild(1).gameObject.SetActive(true);
+
+                if (_tpc.Level == 3)
+                {
+                    instance.transform.GetChild(1).gameObject.GetComponent<RootsSpawnManager>().level3 = true;
+                }
+                
             }
             else
             {

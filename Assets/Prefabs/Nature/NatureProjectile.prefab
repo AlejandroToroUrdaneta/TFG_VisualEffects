@@ -51,19 +51,19 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0
+      - m_Value: 10
         m_Name: _vfxPhase2Rate
         m_Overridden: 1
-      - m_Value: 5
+      - m_Value: 0
         m_Name: _vfxPhase1Rate
         m_Overridden: 1
-      - m_Value: 5
+      - m_Value: 15
         m_Name: _vfxLeafSparkleFloat
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 0.4
         m_Name: _vfxLeafSparkleSphereRadius
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 0.075
         m_Name: _vfxLeafSparkleSizeFloat
         m_Overridden: 1
     m_Vector2f:

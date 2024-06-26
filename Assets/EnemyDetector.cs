@@ -6,6 +6,7 @@ public class EnemyDetector : MonoBehaviour
 {
     [SerializeField]
     private ThirdPersonController _tpc;
+    
 
     private void Start()
     {
