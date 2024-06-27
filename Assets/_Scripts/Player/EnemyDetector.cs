@@ -1,4 +1,3 @@
-using System;
 using StarterAssets;
 using UnityEngine;
 

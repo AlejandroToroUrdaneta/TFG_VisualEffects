@@ -1,4 +1,3 @@
-using System;
 using CombatSystem;
 using StarterAssets;
 using UnityEngine;
@@ -44,6 +43,7 @@ namespace Enemies
         private int _currentWaypoint = 0;
         
         public Transform[] waypoints;
+        public bool isBlocked = false;
         
         // ID animations
         private int _animSpeedId;
@@ -80,7 +80,7 @@ namespace Enemies
 
         private void Update()
         {
-            if (health > 0)
+            if (health > 0 && !isBlocked)
             {
                 Vector3 playerPos = _player.transform.position;
 
@@ -124,6 +124,10 @@ namespace Enemies
                 _newDestinationCD -= Time.deltaTime;
                 
             }
+            else
+            {
+                _animator.SetFloat(_animSpeedId,0);
+            }
             
         }
         
@@ -142,7 +146,8 @@ namespace Enemies
         private void Die()
         {
             _spawner.Invoke(nameof(NPCSpawner.SpawnNPC),_dyingDelay - 0.1f);
-            _animator.SetTrigger(_animDeathId);   
+            _animator.SetTrigger(_animDeathId); 
+            _animator.SetFloat(_animSpeedId, 1f);
             Destroy(this.gameObject, _dyingDelay);
         }
         

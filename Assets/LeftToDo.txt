@@ -1,4 +1,4 @@
--Terminar de implementar los vfx de nature y energy. (2d aprox)
+-Terminar de implementar los vfx de energy. (2d aprox)
 	-Crear los visual effects graphs.
 	-rellenar los scripts siguiendo el formato de ElementFire.
 

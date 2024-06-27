@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
+using StarterAssets;
+using Enemies;
 using UnityEngine;
 
 public class RootsSpawnManager : MonoBehaviour
@@ -12,12 +10,20 @@ public class RootsSpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject circlRoots;
 
-    private bool _circle = false;
+
+    private ThirdPersonController _tpc;
+    private bool _targetExist = false;
     private float _timer = 0f;
 
     private readonly float _timeSpan = 7f/5.5f;
 
     public bool level3 = false;
+
+    private void Start()
+    {
+        _tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>();
+        if (_tpc.enemyTarget != null) _tpc.enemyTarget.GetComponent<ActiveNPC>().isBlocked =  _targetExist = true;
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,12 +32,12 @@ public class RootsSpawnManager : MonoBehaviour
         {
             if (_timer <= 0)
             {
-                if(!_circle) InstanceStrRoots();
-                else InstanceCrclRoots();
-                _timer = _timeSpan;
+                if(_targetExist && Vector3.Distance(transform.position,_tpc.enemyTarget.position) <= 4f) InstanceCrclRoots();
+                else InstanceStrRoots();
+                _timer = _timeSpan ;
             }
 
-            _timer -= 1f * Time.deltaTime;
+            _timer -= Time.deltaTime;
         }
     }
 
@@ -44,9 +50,5 @@ public class RootsSpawnManager : MonoBehaviour
     {
         Instantiate(circlRoots, transform.position, transform.rotation);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        _circle = true;
-    }
+    
 }

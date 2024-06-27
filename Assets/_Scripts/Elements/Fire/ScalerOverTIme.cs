@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScalerOverTIme : MonoBehaviour
@@ -17,6 +15,6 @@ public class ScalerOverTIme : MonoBehaviour
     
     void Update()
     {
-        if(transform.localScale.x < 5+_MaxScale) transform.localScale += _scaleChange;
+        if(transform.localScale.x < 5+_MaxScale) transform.localScale += _scaleChange*Time.deltaTime;
     }
 }

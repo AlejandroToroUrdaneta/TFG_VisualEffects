@@ -532,7 +532,7 @@
         },
         "preventRotation": false
     },
-    "m_Path": "Shader Graphs",
+    "m_Path": "SG_ATHipp",
     "m_GraphPrecision": 1,
     "m_PreviewMode": 2,
     "m_OutputNode": {
@@ -1826,7 +1826,7 @@
     "m_Value": 0.05000000074505806,
     "m_FloatType": 1,
     "m_RangeValues": {
-        "x": -0.20000000298023225,
+        "x": 0.0,
         "y": 0.20000000298023225
     }
 }
@@ -3656,7 +3656,7 @@
     "m_Value": 0.0,
     "m_FloatType": 1,
     "m_RangeValues": {
-        "x": -10.0,
+        "x": 0.0,
         "y": 10.0
     }
 }

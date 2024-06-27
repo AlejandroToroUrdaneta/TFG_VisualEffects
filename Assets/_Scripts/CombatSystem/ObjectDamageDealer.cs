@@ -9,8 +9,7 @@ public class ObjectDamageDealer : MonoBehaviour
     [SerializeField]
     private bool _isDestroyable = false;
     
-    [SerializeField]
-    private GameObject explosion;
+    public GameObject explosion;
 
     [SerializeField]
     private float delayExplosion;
