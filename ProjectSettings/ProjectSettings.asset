@@ -48,7 +48,7 @@ PlayerSettings:
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
-  unsupportedMSAAFallback: 0
+  unsupportedMSAAFallback: 1
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
   mipStripping: 0
@@ -140,7 +140,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 1be09cf9e7606f840b94bbac768074cb, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -327,7 +328,7 @@ PlayerSettings:
     m_Automatic: 0
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 1200000002000000
-    m_Automatic: 0
+    m_Automatic: 1
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
     m_Automatic: 1

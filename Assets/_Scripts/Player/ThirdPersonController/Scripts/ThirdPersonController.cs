@@ -149,8 +149,7 @@ namespace StarterAssets
        
         private void Start()
         {
-
-            Time.timeScale = 0.5f;
+            
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -188,6 +187,7 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
+       
         }
 
         private void AssignAnimationIDs()

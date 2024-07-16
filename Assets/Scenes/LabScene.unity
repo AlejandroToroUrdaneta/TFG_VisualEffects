@@ -3996,6 +3996,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6248517275272466888, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
+      propertyPath: stopNaNs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248517275272466888, guid: c708a3b79cd542b42bbfedb17e213bc1, type: 3}
       propertyPath: volumeAnchorOverride
       value: 
       objectReference: {fileID: 581876911}
