@@ -249,6 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  delay: 0
+  follow: 0
 --- !u!114 &454756785799262221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +267,7 @@ MonoBehaviour:
   _isDestroyable: 1
   explosion: {fileID: 3134080243297250158, guid: b215b18c543cb994a8580f37cddaccca, type: 3}
   delayExplosion: 1
+  waitForExplosion: 0
 --- !u!1 &5087713858495288870
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +328,7 @@ VisualEffect:
       - m_Value: 2
         m_Name: _vfxFireSphereRadius
         m_Overridden: 1
-      - m_Value: 100
+      - m_Value: 0
         m_Name: _vfxPhase2Rate
         m_Overridden: 1
     m_Vector2f:

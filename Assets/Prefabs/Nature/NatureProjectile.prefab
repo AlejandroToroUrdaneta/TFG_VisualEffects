@@ -51,19 +51,19 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 10
+      - m_Value: 0
         m_Name: _vfxPhase2Rate
         m_Overridden: 1
-      - m_Value: 0
+      - m_Value: 5
         m_Name: _vfxPhase1Rate
         m_Overridden: 1
-      - m_Value: 15
+      - m_Value: 5
         m_Name: _vfxLeafSparkleFloat
         m_Overridden: 1
-      - m_Value: 0.4
+      - m_Value: 0.1
         m_Name: _vfxLeafSparkleSphereRadius
         m_Overridden: 1
-      - m_Value: 0.075
+      - m_Value: 0.1
         m_Name: _vfxLeafSparkleSizeFloat
         m_Overridden: 1
     m_Vector2f:
@@ -230,6 +230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5.5
+  delay: 0
+  follow: 0
 --- !u!114 &2554949514820846416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +248,7 @@ MonoBehaviour:
   _isDestroyable: 1
   explosion: {fileID: 0}
   delayExplosion: 1
+  waitForExplosion: 0
 --- !u!1001 &1805115478520564633
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class ScalerOverTIme : MonoBehaviour
     
     void Start()
     {
-        float scaleStep = _MaxScale / 250f;
+        float scaleStep = _MaxScale / 60f;
         transform.rotation = transform.parent.rotation;
         _scaleChange = new Vector3(scaleStep, scaleStep, scaleStep);
         

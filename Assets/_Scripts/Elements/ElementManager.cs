@@ -53,16 +53,9 @@ namespace Elements
 
         public void ChangeToEnergy()
         {
-            tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
-            /*tpcAnimator.SetBool(_currentWeaponEquiped, false);
-             
-            _currentWeaponEquiped = "CastEquiped";
-            //set bool GunEquiped to true
-            tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
-            //set cast Layer to 1*/
+            tpcAnimator.SetBool(_currentWeaponEquiped, false);
             
-            _currentAnimatorLayer = "Base Layer";
-            tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),1);
+            if(_currentAnimatorLayer == "Bow Layer") tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
             
             tpc.AbilityFunction = _energy.CastAbility;
             tpc.ShootFunction = _energy.Shoot;

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class ObjectDamageDealer : MonoBehaviour
 
     [SerializeField]
     private float delayExplosion;
+    [SerializeField]
+    private float waitForExplosion;
     
 
     private void OnTriggerEnter(Collider other)
@@ -26,12 +29,18 @@ public class ObjectDamageDealer : MonoBehaviour
         {
             if (explosion != null)
             {
-                GameObject instance = Instantiate(explosion, transform.position, quaternion.identity);
-                Destroy(instance,delayExplosion);
+                Invoke("Explode", waitForExplosion);
             }
             transform.gameObject.SetActive(false);
             Destroy(this.gameObject,delayExplosion+1f);
         }
     }
-    
+
+    private void Explode()
+    {
+        GameObject instance = Instantiate(explosion, transform.position, quaternion.identity);
+        Destroy(instance, delayExplosion);
+    }
+
+
 }
