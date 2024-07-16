@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ebbebfc3854db0841bff8e1daf5ffc, type: 3}
+  m_Name: H no pic test
+  m_EditorClassIdentifier: 
+  headerString: MENSAJE DE EJEMPLO
+  layout: 1
+  contentString: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+    sit amet enim in velit tincidunt mollis at vitae quam. Quisque eros nulla, pretium
+    eget tellus id, scelerisque lacinia justo.
+
+
+    Maecenas tristique dui velit,
+    rutrum finibus diam mollis ornare. Donec eget nulla magna. Phasellus consequat
+    aliquet orci, dapibus posuere tortor porttitor sed.'
+  image: {fileID: 0}
+  hasConfirmButton: 1
+  confirmString: "S\xED"
+  hasCancelButton: 1
+  cancelString: No
+  hasAlternativeButton: 0
+  alternativeString: 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ebbebfc3854db0841bff8e1daf5ffc, type: 3}
+  m_Name: Apositos Test
+  m_EditorClassIdentifier: 
+  headerString: "\xA1APOSITOS NUEVOS!"
+  layout: 1
+  contentString: "Has aceptado la oferta del comercial. Los nuevos ap\xF3sitos son
+    igual de buenos que los anteriores, pero mucho m\xE1s baratos.\n\nLos pacientes
+    ni notar\xE1n el cambio, pero las cuentas del hospital lo agradecer\xE1n. \xA1Menuda
+    ganga!"
+  image: {fileID: 21300000, guid: e633cafc65b31b34b93154765f583cad, type: 3}
+  hasConfirmButton: 1
+  confirmString: Continuar
+  hasCancelButton: 0
+  cancelString: 
+  hasAlternativeButton: 0
+  alternativeString: 
