@@ -55,7 +55,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0
         m_Name: _vfxPhase2Rate
         m_Overridden: 1
     m_Vector2f:
@@ -201,3 +201,6 @@ MonoBehaviour:
   explosion: {fileID: 0}
   delayExplosion: 1.5
   waitForExplosion: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64

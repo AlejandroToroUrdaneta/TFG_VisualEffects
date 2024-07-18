@@ -5,16 +5,9 @@ using UnityEngine.AI;
 
 namespace Enemies
 {
-    public class ActiveNPC : MonoBehaviour
+    public class ActiveNPC : Enemy
     {
-        [Header("Enemy Settings")]
-        [SerializeField]
-        private float health = 150f;
-        [SerializeField]
-        [Tooltip("time that takes the animation Dying to play")]
-        private float _dyingDelay = 6.0f;
-
-        [Header("Combat")]
+        [Header("Combat Settings")]
         [SerializeField]
         [Tooltip("Time it waits to attack again")]
         private float attackCD = 3.0f;
@@ -26,13 +19,12 @@ namespace Enemies
         [SerializeField]
         [Tooltip("From how far starts to attack the player")]
         private float aggroRange = 4.0f;
-        
-        
+
         // NPC Components
+        [SerializeField]
         private ThirdPersonController _player;
+
         private NavMeshAgent _navMeshAgent;
-        private Animator _animator;
-        private CharacterController _controller;
         private NPCSpawner _spawner;
 
         private float _timePassed;
@@ -41,44 +33,38 @@ namespace Enemies
         private float _seekSpeed = 4.5f;
         private bool _Swing;
         private int _currentWaypoint = 0;
-        
+
         public Transform[] waypoints;
         public bool isBlocked = false;
-        
+
         // ID animations
         private int _animSpeedId;
-        private int _animDamageId;
         private int _animAttackId;
         private int _animSwingId;
         private int _animDeathId;
-        
+
         // Animations Events
         public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] 
-        public float FootstepAudioVolume = 0.5f;
-        
 
-        private void Start()
+        [Range(0, 1)]
+        public float FootstepAudioVolume = 0.5f;
+
+        protected override void Start()
         {
-            _player = GameObject.FindWithTag("Player").GetComponent<ThirdPersonController>();
-            _spawner = GameObject.FindWithTag("Spawner").GetComponent<NPCSpawner>();
-            _animator = GetComponent<Animator>();
+            base.Start();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _controller = GetComponent<CharacterController>();
-            
+            _animator = GetComponent<Animator>();
+            _player = GameObject.FindWithTag("Player").GetComponent<ThirdPersonController>();
+            _spawner = GameObject.FindWithTag("Spawner")?.GetComponent<NPCSpawner>();
             AssignAnimationIDs();
-        }
-        
-        private void  AssignAnimationIDs()
-        {
-            _animSpeedId = Animator.StringToHash("NpcSpeed");
-            _animDamageId = Animator.StringToHash("NpcDamage");
-            _animAttackId = Animator.StringToHash("NpcAttack");
-            _animSwingId = Animator.StringToHash("NpcSwing");
-            _animDeathId = Animator.StringToHash("NpcDeath");
         }
 
         private void Update()
+        {
+            ActiveNPCLogic();
+        }
+
+        private void ActiveNPCLogic()
         {
             if (health > 0 && !isBlocked)
             {
@@ -96,61 +82,66 @@ namespace Enemies
                 }
 
                 _timePassed += Time.deltaTime;
-                
+
                 if (_newDestinationCD <= 0)
                 {
-                    if (Vector3.Distance(playerPos, transform.position) <= aggroRange)//seek the target
+                    if (Vector3.Distance(playerPos, transform.position) <= aggroRange) // seek the target
                     {
-                        _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _seekSpeed);
+                        _animator.SetFloat(_animSpeedId, _navMeshAgent.velocity.magnitude / _seekSpeed);
                         _navMeshAgent.speed = _seekSpeed;
                         _navMeshAgent.SetDestination(playerPos);
                         transform.LookAt(_player.transform);
                     }
-                    else //patrol
+                    else // patrol
                     {
                         _navMeshAgent.speed = _patrolSpeed;
-                        _animator.SetFloat(_animSpeedId,_navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
+                        _animator.SetFloat(_animSpeedId, _navMeshAgent.velocity.magnitude / _navMeshAgent.speed);
+
                         if (Vector3.Distance(waypoints[_currentWaypoint].position, transform.position) < 1f)
                         {
                             _currentWaypoint = (_currentWaypoint + 1) % waypoints.Length;
                         }
+
                         _navMeshAgent.SetDestination(waypoints[_currentWaypoint].position);
                         transform.LookAt(waypoints[_currentWaypoint].position);
                     }
+
                     _newDestinationCD = 0.5f;
-                    
                 }
 
                 _newDestinationCD -= Time.deltaTime;
-                
             }
             else
             {
-                _animator.SetFloat(_animSpeedId,0);
+                
+                _animator.SetFloat(_animSpeedId, 0);
+                _navMeshAgent.velocity = Vector3.zero;
+                _navMeshAgent.isStopped = true;
             }
-            
         }
-        
 
-        public void TakeDamage(float damageAmount)
+        protected override void AssignAnimationIDs()
         {
-            health -= damageAmount;
-            _animator.SetTrigger(_animDamageId);
+            base.AssignAnimationIDs();
+            _animSpeedId = Animator.StringToHash("NpcSpeed");
+            _animAttackId = Animator.StringToHash("NpcAttack");
+            _animSwingId = Animator.StringToHash("NpcSwing");
+            _animDeathId = Animator.StringToHash("NpcDeath");
+        }
 
-            if (health <= 0)
+        protected override void Die()
+        {
+            if (_spawner != null)
             {
-                Die();
+                _spawner.Invoke(nameof(NPCSpawner.SpawnNPC), _dyingDelay - 0.1f);
             }
-        }
-        
-        private void Die()
-        {
-            _spawner.Invoke(nameof(NPCSpawner.SpawnNPC),_dyingDelay - 0.1f);
-            _animator.SetTrigger(_animDeathId); 
+
+            _player.GetComponent<ThirdPersonController>().enemyTarget = null;
+            _animator.SetTrigger(_animDeathId);
             _animator.SetFloat(_animSpeedId, 1f);
-            Destroy(this.gameObject, _dyingDelay);
+            base.Die();
         }
-        
+
         public void StartDealDamage()
         {
             EnemyDamageDealer[] children = GetComponentsInChildren<EnemyDamageDealer>();
@@ -170,31 +161,17 @@ namespace Enemies
                 eDD.EndDealDamage();
             }
         }
-        
-        
+
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
                 {
-                    var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
+                    var index = Random.Range(0, FootstepAudioClips.Length);
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;;
-            Gizmos.DrawWireSphere(transform.position,attackRange);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position,aggroRange);
-        }
-
-        public float GetRestingHealth()
-        {
-            return health;
         }
     }
 }

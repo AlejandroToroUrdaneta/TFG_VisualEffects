@@ -8,12 +8,14 @@ namespace Elements
     {
         public ThirdPersonController tpc;
         public Animator tpcAnimator;
+        public GameObject currentWeapon;
         
         private NatureElement _nature;
         private FireElement _fire;
         private EnergyElement _energy;
         private string _currentAnimatorLayer;
         private string _currentWeaponEquiped;
+        
         
         
         
@@ -31,17 +33,24 @@ namespace Elements
         public void ChangeToNature()
         {
             tpcAnimator.SetBool(_currentWeaponEquiped, false);
-            
-            if(_currentAnimatorLayer == "Bow Layer") tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
+
+            if (_currentAnimatorLayer == "Bow Layer")
+            {
+                tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
+                currentWeapon.SetActive(false);
+            }
             
             tpc.AbilityFunction = _nature.CastAbility;
             tpc.ShootFunction = _nature.Shoot;
+            tpc.leveUpMaterial.SetColor("_Color",tpc.nColor);
+            tpc.currentElement = ThirdPersonController.Element.Nature;
         }
 
         public void ChangeToFire()
         {
             _currentWeaponEquiped = "BowEquiped";
             tpcAnimator.SetBool(_currentWeaponEquiped, true);
+            currentWeapon.SetActive(true);
             
             tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
             _currentAnimatorLayer = "Bow Layer";
@@ -49,16 +58,24 @@ namespace Elements
             
             tpc.AbilityFunction = _fire.CastAbility;
             tpc.ShootFunction = _fire.Shoot;
+            tpc.currentElement = ThirdPersonController.Element.Fire;
+            tpc.leveUpMaterial.SetColor("_Color",tpc.fColor);
         }
 
         public void ChangeToEnergy()
         {
             tpcAnimator.SetBool(_currentWeaponEquiped, false);
-            
-            if(_currentAnimatorLayer == "Bow Layer") tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
+
+            if (_currentAnimatorLayer == "Bow Layer")
+            {
+                tpcAnimator.SetLayerWeight(tpcAnimator.GetLayerIndex(_currentAnimatorLayer),0);
+                currentWeapon.SetActive(false);
+            }
             
             tpc.AbilityFunction = _energy.CastAbility;
             tpc.ShootFunction = _energy.Shoot;
+            tpc.leveUpMaterial.SetColor("_Color",tpc.eColor);
+            tpc.currentElement = ThirdPersonController.Element.Energy;
         }
     }
 }

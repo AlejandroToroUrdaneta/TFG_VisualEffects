@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using Random = UnityEngine.Random;
+using UnityEngine.VFX;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -76,7 +78,24 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
-
+        
+        //Element
+        public enum Element
+        {
+            Fire,
+            Nature,
+            Energy
+        }
+        public Element currentElement = Element.Fire;
+        public Color fColor = new Color(25.99626f,5.199251f,5.199251f,1f);
+        public Color eColor = new Color(25.99626f,22.54824f,5.308136f,1f);
+        public Color nColor = new Color(12.20417f,25.99626f,5.308136f,1f);
+        
+        
+        //LevelUP animation
+        public Material leveUpMaterial;
+        public VisualEffect levelUpVFX;
+        
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -108,6 +127,7 @@ namespace StarterAssets
         private int _animIDDamaged;
         private int _animIDDirX;
         private int _animIDDirY;
+        private int _animIDLevelUp;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -166,6 +186,10 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            leveUpMaterial.SetColor("_Color",fColor);
+            leveUpMaterial.SetFloat("_Power", 10f);
+
         }
 
         private void Update()
@@ -200,6 +224,7 @@ namespace StarterAssets
             _animIDDamaged = Animator.StringToHash("Damage");
             _animIDDirX = Animator.StringToHash("X");
             _animIDDirY = Animator.StringToHash("Y");
+            _animIDLevelUp = Animator.StringToHash("LevelUp");
 
         }
 
@@ -427,8 +452,13 @@ namespace StarterAssets
         
         private void LevelUp()
         {
-            if (_input.levelUp){ 
-                if(Level < 3)Level += 1;
+            if (_input.levelUp){
+                if (Level < 3)
+                {
+                    Level += 1;
+                    StartCoroutine(LevelUpAnimation());
+                }
+                
                 _input.levelUp = false;
             }
         }
@@ -437,9 +467,93 @@ namespace StarterAssets
         {
             if (_input.levelDown)
             {
-                if(Level > 1) Level -= 1;
+                if (Level > 1)
+                {
+                    Level -= 1;
+                    switch (Level)
+                    {
+                        case 1 :
+                            leveUpMaterial.SetFloat("_Power", 10f);
+                            break;
+                        case 2 :
+                            leveUpMaterial.SetFloat("_Power", 6f);
+                            break;
+                    }
+                }
                 _input.levelDown = false;
             }
+        }
+        
+        
+        private IEnumerator LevelUpAnimation()
+        {
+            float startValue = 10f;
+            float middleValue = 1f;
+            float endValue = 10f;
+            float duration = 1.2f;
+            float halfDuration = duration / 2;
+            
+            float elapsedTime = 0f;
+
+            switch (currentElement)
+            {
+                case Element.Fire:
+                    leveUpMaterial.SetColor("_Color",fColor);
+                    levelUpVFX.SetVector4("_ParticlesColor", fColor);
+                    break;
+                case Element.Energy:
+                    leveUpMaterial.SetColor("_Color",eColor);
+                    levelUpVFX.SetVector4("_ParticlesColor", eColor);
+                    break;
+                case Element.Nature:
+                    leveUpMaterial.SetColor("_Color",nColor);
+                    levelUpVFX.SetVector4("_ParticlesColor", nColor);
+                    break;
+            }
+
+            switch (Level)
+            {
+                case 1 :
+                    levelUpVFX.SetFloat("_Phase",1);
+                    endValue = 10f;
+                    break;
+                case 2 :
+                    levelUpVFX.SetFloat("_Phase",2);
+                    endValue = 6f;
+                    break;
+                case 3 :
+                    levelUpVFX.SetFloat("_Phase",3);
+                    endValue = 2f;
+                    break;
+            }
+            
+            _animator.SetTrigger(_animIDLevelUp);
+            levelUpVFX.Play();
+            
+            while (elapsedTime < halfDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float currentValue = Mathf.Lerp(startValue, middleValue, elapsedTime / halfDuration);
+                leveUpMaterial.SetFloat("_Power", currentValue);
+
+                yield return null;
+            }
+            
+            leveUpMaterial.SetFloat("_Power", middleValue);
+
+            elapsedTime = 0f;
+
+            // Segundo tramo: de middleValue a endValue
+            while (elapsedTime < halfDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float currentValue = Mathf.Lerp(middleValue, endValue, elapsedTime / halfDuration);
+                leveUpMaterial.SetFloat("_Power", currentValue);
+
+                yield return null;
+            }
+            
+            leveUpMaterial.SetFloat("_Power", endValue);
         }
         
         private void OnFootstep(AnimationEvent animationEvent)

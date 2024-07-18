@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -14,11 +15,16 @@ namespace StarterAssets
 		public bool sprint;
 		public bool ability;
 		public bool block;
+	
 
 		[Header("Shortcuts Input Values")]
 		public bool levelUp;
 		public bool levelDown;
-		
+
+		[FormerlySerializedAs("changeCameraRigth")]
+		[Header("POV Input Values")]
+		public bool changeCameraRight;
+		public bool changeCameraLeft;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -26,7 +32,11 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+
+		[Header("PauseMenu")]
+		public GameObject pauseMenu;
 		
+
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
@@ -71,6 +81,21 @@ namespace StarterAssets
 		{
 			LevelDownInput(value.isPressed);
 		}
+
+		public void OnPause(InputValue value)
+		{
+			PauseInput(value.isPressed);
+		}
+
+		public void OnChangeCameraRight(InputValue value)
+		{
+			CCRInput(value.isPressed);
+		}
+		
+		public void OnChangeCameraLeft(InputValue value)
+		{
+			CCLInput(value.isPressed);
+		}
 		
 #endif
 
@@ -112,6 +137,32 @@ namespace StarterAssets
 		public void LevelDownInput(bool newLevelDownState)
 		{
 			levelDown = newLevelDownState;
+		}
+
+		public void PauseInput(bool newPauseState)
+		{
+			if(newPauseState)
+			{
+				OnApplicationFocus(!newPauseState);
+				pauseMenu.SetActive(true);
+				Time.timeScale = 0;
+			}
+			else
+			{
+				OnApplicationFocus(!newPauseState);
+				pauseMenu.SetActive(false);
+				Time.timeScale = 1;
+			}
+		}
+
+		public void CCRInput(bool newccrState)
+		{
+			changeCameraRight = newccrState;
+		}
+		
+		public void CCLInput(bool newcclState)
+		{
+			changeCameraLeft = newcclState;
 		}
 
 	

@@ -1,16 +1,25 @@
 using UnityEngine;
 
-public class PasiveNPC : MonoBehaviour
+namespace Enemies
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PassiveNPC : Enemy
     {
+        protected override void Start()
+        {
+            base.Start();
+            _animator = GetComponent<Animator>();
+        }
         
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void TakeDamage(float damageAmount)
+        {
+            base.TakeDamage(0);
+            
+        }
+
+        protected override void Die()
+        {
+            
+        }
     }
 }

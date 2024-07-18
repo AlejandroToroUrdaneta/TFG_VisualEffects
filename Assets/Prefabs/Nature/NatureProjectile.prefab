@@ -249,6 +249,9 @@ MonoBehaviour:
   explosion: {fileID: 0}
   delayExplosion: 1
   waitForExplosion: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1805115478520564633
 PrefabInstance:
   m_ObjectHideFlags: 0

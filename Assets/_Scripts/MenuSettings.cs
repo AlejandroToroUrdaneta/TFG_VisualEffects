@@ -9,39 +9,20 @@ public class MenuSettings : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-
-    public void HelpButton()
-    {
-        
-    }
-
-    public void ExitButton()
+    public void ExitGameButton()
     {
         Application.Quit();
     }
-
-    public void AboutMeButton()
-    {
-        
-    }
-
-    public void CreditsButton()
-    {
-        
-    }
-
+    
     public void AboutProject()
     {
         
     }
+    
 
-    public void ResumeButton()
+    public void ExitButton()
     {
-        
-    }
-
-    public void ExitGameButton()
-    {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 }

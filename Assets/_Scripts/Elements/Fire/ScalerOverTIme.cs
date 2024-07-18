@@ -1,20 +1,33 @@
+using System.Collections;
 using UnityEngine;
 
 public class ScalerOverTIme : MonoBehaviour
 {
-    private float _MaxScale = 30f;
-    private Vector3 _scaleChange;
-    
-    void Start()
+    private float scaleTime = 1f; // Tiempo en segundos para escalar
+
+    private void Start()
     {
-        float scaleStep = _MaxScale / 60f;
-        transform.rotation = transform.parent.rotation;
-        _scaleChange = new Vector3(scaleStep, scaleStep, scaleStep);
-        
+        ScaleTo(new Vector3(40f, 40f, 40f), scaleTime);
     }
-    
-    void Update()
+
+    private void ScaleTo(Vector3 targetScale, float time)
     {
-        if(transform.localScale.x < 5+_MaxScale) transform.localScale += _scaleChange*Time.deltaTime;
+        StartCoroutine(ScaleOverTime(targetScale, time));
+    }
+
+    private IEnumerator ScaleOverTime(Vector3 targetScale, float time)
+    {
+        Vector3 originalScale = transform.localScale;
+        float currentTime = 0f;
+
+        while (currentTime <= time)
+        {
+            float t = currentTime / time;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = targetScale; // Asegurarse de que termine en el escala objetivo exacta
     }
 }

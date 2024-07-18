@@ -22,7 +22,21 @@ public class RootsSpawnManager : MonoBehaviour
     private void Start()
     {
         _tpc = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>();
-        if (_tpc.enemyTarget != null) _tpc.enemyTarget.GetComponent<ActiveNPC>().isBlocked =  _targetExist = true;
+
+        if (_tpc.enemyTarget != null)
+        {
+            _tpc.enemyTarget.TryGetComponent(out ActiveNPC activeNPC);
+
+            if (activeNPC != null)
+            {
+                activeNPC.isBlocked =  _targetExist = true;
+            }
+            else
+            {
+                _targetExist = true;
+            }
+            
+        }
     }
 
     // Update is called once per frame

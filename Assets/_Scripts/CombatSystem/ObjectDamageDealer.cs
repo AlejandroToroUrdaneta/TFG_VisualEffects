@@ -1,4 +1,6 @@
 using System.Collections;
+using Enemies;
+using StarterAssets;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -16,13 +18,21 @@ public class ObjectDamageDealer : MonoBehaviour
     private float delayExplosion;
     [SerializeField]
     private float waitForExplosion;
+
+    [SerializeField]
+    private LayerMask groundLayer;
     
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Enemies.ActiveNPC enemy ))
+        if (other.TryGetComponent(out Enemy enemy ))
         {
             enemy.TakeDamage(_damage);
+
+            if (other.TryGetComponent(out ActiveNPC activeNpc) && activeNpc.isBlocked)
+            {
+                activeNpc.isBlocked = false;
+            }
         }
 
         if (_isDestroyable)
@@ -34,11 +44,27 @@ public class ObjectDamageDealer : MonoBehaviour
             transform.gameObject.SetActive(false);
             Destroy(this.gameObject,delayExplosion+1f);
         }
+        
     }
 
     private void Explode()
     {
-        GameObject instance = Instantiate(explosion, transform.position, quaternion.identity);
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        GameObject instance;
+        
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>().currentElement
+            == ThirdPersonController.Element.Energy)
+        {
+            Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer);
+            instance = Instantiate(explosion, hit.point, Quaternion.identity);
+        }
+        else
+        {
+            instance = Instantiate(explosion, transform.position, Quaternion.identity);
+        }
+
         Destroy(instance, delayExplosion);
     }
 

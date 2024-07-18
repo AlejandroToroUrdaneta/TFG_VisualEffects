@@ -10,7 +10,7 @@ namespace Elements
         [SerializeField]
         private List<Vector3> _points = new List<Vector3>();
         
-        private int _numPoints = 50;
+
         
         private void Start()
         {
